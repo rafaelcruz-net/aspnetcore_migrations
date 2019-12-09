@@ -9,13 +9,17 @@ namespace Domain.Repositorio
 {
     public class AssesmentContext : DbContext
     {
-        DbSet<Estado> Estados { get; set; }
-        DbSet<Pais> Pais { get; set; }
+        public DbSet<Estado> Estados { get; set; }
+        public DbSet<Pais> Pais { get; set; }
 
-        public AssesmentContext(DbContextOptions options) : base(options)
+        public string connectionString = "Server=tcp:infnetassesmentdb.database.windows.net,1433;Initial Catalog=infnetassesment;Persist Security Info=False;User ID=infnetassesmentusr;Password=123456789#A;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-          
+            optionsBuilder.UseSqlServer(connectionString);
         }
+
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
